@@ -1,0 +1,53 @@
+{% extends 'include/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ page_title }}</title>
+{% endblock %}
+
+
+{% block content %}
+
+    <!--content-->
+    <div class="container" style="height: 600px;margin-top: 20px">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6 hidden-xs hidden-sm">
+                <div class="card">
+                    <div class="card-header">{{ form_title }}</div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {# {{ login_form }}#}
+                            {% for field in form %}
+                                <!--去掉冒号-->
+                                {% if not field.is_hidden %}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {% endif %}
+                                {{ field }}
+                                <!--显示错误标签-->
+                                <p class="text-danger">{{ field.errors.as_text }}</p>
+
+                            {% endfor %}
+                            <spen id="tip" class="pull-left text-danger">{{ form.non_field_errors }}</spen>
+                            <div>
+                                {% block other_button %}{% endblock %}
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" value="{{ submit_text }}" class="btn btn-primary">
+                                <button class="btn btn-secondary"
+                                        onclick="window.location.href='{{ return_back_url }}'">
+                                    返回
+                                </button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

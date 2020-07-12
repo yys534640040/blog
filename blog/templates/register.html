@@ -1,0 +1,90 @@
+{% extends 'include/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>注册</title>
+{% endblock %}
+
+
+{% block content %}
+
+
+    <!--content-->
+    <div class="container" style="height: 600px;margin-top: 20px">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6 hidden-xs hidden-sm">
+                <div class="card">
+                    <div class="card-header">注册</div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {#                                {{ login_form }}#}
+                            {% for field in reg_form %}
+                                <!--去掉冒号-->
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                <!--显示错误标签-->
+                                <p class="text-danger">{{ field.errors.as_text }}</p>
+                            {% endfor %}
+                            <spen class="pull-left text-danger">{{ reg_form.non_field_errors }}</spen>
+
+                            <button id="send_code" class="btn btn-primary ">发送验证码</button>
+                            <button class="primaryAction btn btn-primary " style="float:right" type="submit"
+                                    id="submit_login" @click="on_submit">提交
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottomjs %}
+    <script type="text/javascript">
+        $("#send_code").click(function () {
+            var email = $("#id_email").val();
+            if (email == "") {
+                $("#tip").text('*邮箱不能为空');
+                return false;
+
+            }
+            //发送验证码
+            $.ajax({
+                url: "{% url 'users:send_verification_code' %}",
+                type: "GET",
+                data: {
+                    'email': email,
+                    {#register_code传入form#}
+                    'send_for': 'register_code'
+                },
+                cache: false,
+                success: function (data) {
+                    if (data['status'] == 'ERROR') {
+                        alert(data['status']);
+                    }
+                }
+            });
+            // 把按钮变灰
+            $(this).addClass('disabled');
+            $(this).attr('disabled', true);
+            var time = 30;
+            $(this).text(time + 's');
+            var interval = setInterval(() => {
+                if (time <= 0) {
+                    clearInterval(interval);
+                    $(this).removeClass('disabled');
+                    $(this).attr('disabled', false);
+                    $(this).text('发送验证码');
+                    return false;
+                }
+
+                time--;
+                $(this).text(time + 's');
+            }, 1000);
+
+        });
+    </script>
+{% endblock %}

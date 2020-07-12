@@ -1,0 +1,181 @@
+{% extends 'include/base.html' %}
+
+{% load static %}
+{% load comment_tags %}
+{% block title %}
+    <title>首页</title>
+{% endblock %}
+
+
+{% block topothercssjs %}
+
+    <!--导入css-->
+{#    <link rel="stylesheet" href="{% static 'common/common.css' %}">#}
+    <link rel="stylesheet" href="{% static 'common/jquery.pagination.css' %}">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!--轮播图 col-md-3调轮播图的宽-->
+    <div id="demo" class="carousel slide  container" data-ride="carousel">
+        <!--底部指示器-->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!--轮播内容-->
+        <div class="carousel-inner ">
+            {% for article in all_article %}
+                <!--align="center"图片居中, text-danger警告文本,字体红色-->
+                {% if article.id == num1 %}
+                    <div class="carousel-item active " align="center">
+                        <a href="{% url 'home:detail' %}?id={{ article.id }}">
+                            <img src="{{ article.avatar.url }}" height="400" alt="{{ article.title }}">  <!--设置高固定,宽自适应-->
+                            <div class="carousel-caption sub-mainbox col-md-3">{{ article.title }}</div>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if article.id == num2 %}
+
+                    <div class="carousel-item" align="center">
+                        <a href="{% url 'home:detail' %}?id={{ article.id }}">
+                            <img src="{{ article.avatar.url }}" height="400"  alt="{{ article.title }}">
+                            <div class="carousel-caption sub-mainbox col-md-3">{{ article.title }}</div>
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if article.id == num3 %}
+
+                    <div class="carousel-item" align="center">
+                        <a href="{% url 'home:detail' %}?id={{ article.id }}">
+                            <img src="{{ article.avatar.url }}" height="400" alt="{{ article.title }}">
+                            <div class="carousel-caption sub-mainbox col-md-3">{{ article.title }}</div>
+                        </a>
+
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+
+        <!--左右按钮-->
+
+        <a class="carousel-control-prev " href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon "></span>
+        </a>
+
+    </div>
+
+
+    <!-- content -->
+    <div class="container">
+        <!-- 列表循环 -->
+        <div class="row">
+            <section class="col-sm-12 col-md-12 col-lg-8 index" id="main">
+                {% for article in articles %}
+                    {# 现实大块按钮,warning警告色#}
+                    <button type="button" data-toggle="tooltip" title="请点击标题查看内容!"
+                            class="btn btn-outline-warning btn-lg btn-block text-left ">
+
+                        <span class="row mt-2">
+                            <!-- 文章内容 -->
+                            <!-- 标题图 如果是电脑图竖着,如果是手机图横着-->
+                            <div class="{% if is_mobile is False %}col-3 {% else %} mt-2 {% endif %}">
+                                <img src="{{ article.avatar.url }}" alt="avatar"
+                                     style="max-width:100%; border-radius: 20px">
+                            </div>
+                            <!-- 下面几个项目如果是电脑图竖着,如果是手机图横着-->
+                            <div class="{% if is_mobile is False %}col {% else %} mt {% endif %}">
+                                <!-- 栏目 -->
+                                <a role="button" href="#"
+                                   class="btn btn-sm mb-2 btn-warning">{{ article.category.title }}</a>
+                                <!-- 标签 -->
+                                <span>
+                            <a href="#" class="badge badge-secondary">{{ article.tags }}</a>
+                    </span>
+                                <!-- 标题 -->
+                                <h4>
+                                    <b><a data-toggle="tooltip" title="我是标题!"
+                                          href="{% url 'home:detail' %}?id={{ article.id }}"
+                                          style="color: black;">{{ article.title }}</a></b>
+                                </h4>
+                                <!-- 摘要 -->
+                                <div>
+                                    <p style="color: gray;">
+                                        {{ article.sumary }}
+                                    </p>
+                                </div>
+                                <!-- 注脚 -->
+                                <p>
+                                    <!-- 查看、评论、第一次发帖时间,最近修改时间, (tooltip在selfjs的jshtml里面定义的) tooltip是加入提示框title="提示内容",-->
+                                    <span><i class="fa fa-eye"
+                                             style="color: lightskyblue;"></i>{{ article.total_views }}&nbsp;&nbsp;&nbsp;</span>
+                                    <span><i class="fa fa-comments"
+                                             style="color: yellowgreen;"></i>{% get_comment_count article %}&nbsp;&nbsp;&nbsp;</span>
+                                    <span><i class="fa fa-thumbs-o-up"
+                                             style="color:red"></i>{% get_like_count article %}&nbsp;</span>
+                                    <span data-toggle="tooltip" title="发布时间!"><i class="fa fa-clock-o"
+                                                                                 style="color: pink;"></i>{{ article.created | date:'Y-m-d H:i:s' }}</span>
+                                    <!-- date 日期过滤器 -->
+                                    {#                       {% if is_mobile is False %} <span data-toggle="tooltip" title="修改时间!"><i class="fas fa-clock" style="color: red;"></i>{{ article.updated|date:"Y-m-d H:i:s" }}</span>  {% endif %}  <!-- date 日期过滤器 -->#}
+                                    {#                        点赞({% get_like_count article %})#}
+
+                                </p>
+                            </div>
+
+                            {#            <hr style="width: 100%;"/>#}
+                        </span>
+                    </button>
+                {% endfor %}
+
+
+                <!-- 页码导航 -->
+                <div class="pagenation" style="text-align: center">
+                    <div id="pagination" class="page"></div>
+                </div>
+            </section>
+
+            {% if is_mobile is False %}
+                {#   hidden-xs hidden-sm#}
+                {% include 'include/mycard.html' %}
+
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bottomjs %}
+    <!-- 引入js -->
+{#    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'js/jquery.pagination.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#pagination').pagination({
+                currentPage: {{ page_num }},
+                totalPage: {{ total_page }},
+                callback: function (current) {
+
+                    <!-- 地址栏复制 -->
+                    location.href = '/?cat_id={{ category.id }}&page_size={{ page_size }}&page_num=' + current;
+                }
+            })
+        });
+    </script>
+
+{% endblock %}
+
+
+

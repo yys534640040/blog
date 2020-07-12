@@ -1,0 +1,91 @@
+/*{#透明色#}*/
+        *{
+            padding: 0px;
+            margin:0px;
+        }
+        .mainbox{
+            width: 200px;
+            height: 200px;
+            clear: both;
+            overflow: hidden;
+            margin: 100px auto 0px auto;
+            background-color: #f06;
+        }
+        .sub-mainbox
+        {
+            /*{#width: 250px;#}*/
+            /*{#height: 200px;#}*/
+            margin: -50px auto 0px auto;
+            border:1px solid white;
+            border-radius: 5px;
+
+            background-color:rgba(0,152,50,0.7);
+            /*{#background:url(path/my_bg.jpg) no-repeat center center scroll;#}*/
+            /*{#opacity: 0.7;#}*/
+            /*{#filter:alpha(opacity=70);#}*/
+        }
+
+/* 分页样式 */
+.pagenation{height:32px;text-align:center;font-size:0;margin:30px auto;}
+.pagenation a{display:inline-block;border:1px solid #d2d2d2;background-color:#f8f6f7;font-size:12px;padding:5px 10px;color:#666;margin:5px}
+.pagenation .active{background-color:#fff;color:#43a200}
+
+    /*{#我的名片样式#}*/
+    div.blog-more{
+        margin-top: 1em;
+    }
+    .about { background: #FFF url('/static/banner.png') no-repeat top center; overflow: hidden; }
+    .avatar { margin: 80px auto 20px; width: 100px }
+    .avatar img { width: 100px; border-radius: 50% }
+    .abname { color: #3f3f3f; font-weight: bold; font-size: 16px; margin-bottom: 10px; text-align: center }
+    .abposition { color: #1abc9c; text-align: center }
+    .abtext { padding: 20px 40px; color: #9a9a9a; line-height: 26px }
+
+
+    /*{#去掉li的点#}*/
+    li {list-style-type:none;}
+    /*{# CKeditor 评论模块    #}*/
+    div.django-ckeditor-widget{
+        width: 100%;
+    }
+
+    /*{#评论样式#}*/
+    div.comment {
+        border-bottom: 1px dashed #ccc;
+        margin-bottom: 0.5em;
+        padding-bottom: 0.5em;
+    }
+
+    /*{#回复样式#}*/
+    div.reply {
+        margin-left: 2em;
+    }
+
+    div#reply_content_container{
+        border: 1px solid #acacac;
+        border-bottom: none;
+        background-color: #e5e6e5;
+        overflow: hidden;
+        padding: 1em 1em 0.5em;
+    }
+
+    p#reply_title{
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 1em;
+    }
+
+       .glyphicon-thumbs-up:before {
+        content: "\e203";
+    }
+
+    div.like {
+    color: #337ab7;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0.3em;
+    }
+
+    div.like .active{
+        color: #f22;
+    }
+

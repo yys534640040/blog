@@ -1,0 +1,20 @@
+
+{##id = app可以让下拉菜单栏生效#}
+<nav class="navbar navbar-expand-lg navbar-light bg-warning" >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <a class="navbar-brand" href="{% url 'home:index' %}">zυò夢想の強锗</a>
+   <!--登录/个人中心-->
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'home:search' %}" method="get">
+      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+    </form>
+  </div>
+
+</nav>

@@ -1,0 +1,80 @@
+{% load static %}
+{##id = app可以让下拉菜单栏生效#}
+<nav class="navbar navbar-expand-lg navbar-light bg-warning ">
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'home:index' %}">zυò夢想の強锗</a>
+
+
+    <!--登录/个人中心-->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+            {% for cat in categories %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/?cat_id={{ cat.id }}">{{ cat.title }}</a>
+                </li>
+            {% endfor %}
+
+            {#超级管理员才显示#}
+            {% if user.is_staff or user.is_superuser %}
+                <a class="nav-link" href="{% url 'admin:index' %}" tabindex="-1" aria-disabled="true"
+                   style="color: red;font-weight:bold">后台管理</a>
+            {% endif %}
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="{% url 'home:search' %}" method="get">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+
+        {% if is_mobile is True %}
+            {% include 'include/mycard.html' %}
+        {% endif %}
+
+    </div>
+
+    <!-- 如果用户已经登录，则显示用户名下拉框
+    这里使用了新的模板语法：% if … %，用来判断用户是否已经登录：
+    如果用户已经登录，则显示一个名字为用户名称的下拉框，就像通常的社交网站一样。
+    如果用户未登录，则显示“登录”两个字提醒用户可以点击登录。
+    is_authenticated是models.User类的属性，用于判断用户是否已通过身份验证。
+    -->
+
+    {% if user.is_authenticated %}
+        <div class="dropdown ">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {# 如果有昵称显示手机号(昵称),如果没有显示手机号 #}
+                {% if user.nickname %}
+                    {{ request.user }}({{ user.nickname }})
+                {% else %}
+                    {{ request.user }}
+                {% endif %}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'home:writeblog' %}">写文章</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'users:center' %}">个人信息</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'users:change_password' %}">修改密码</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url "users:logout" %}">退出登录</a>
+
+            </div>
+
+
+        </div>
+        <!-- 如果用户未登录，则显示登录按钮-->
+    {% else %}
+
+        {#         {% include 'include/loginmodal.html' %}#}
+
+        <a class="nav-link" href="{% url 'users:login' %}?from={{ request.get_full_path }}">登录</a>
+    {% endif %}
+
+
+</nav>
+

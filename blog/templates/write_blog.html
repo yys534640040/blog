@@ -1,0 +1,97 @@
+{% extends 'include/base.html' %}
+{% load static %}
+
+{% block title %}
+          <title>写文章</title>
+{% endblock %}
+
+{% block content%}
+
+    <!-- 写文章表单 -->
+<div class="container" style="margin-bottom: 20px">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <!-- 提交文章的表单 -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- 文章标题图 -->
+                <div class="form-group">
+                    <label for="avatar">标题图</label>
+                    <input type="file" class="form-control-file" name="avatar" >
+                </div>
+
+                <!-- 文章标题 -->
+                <div class="form-group">
+                    <!-- 标签 -->
+                    <label for="title">文章标题</label>
+                    <!-- 文本框 -->
+                    <input type="text" class="form-control" id="title" name="title" >
+                </div>
+
+                <!-- 文章栏目 for循环遍历admin里面添加项目-->
+                <div class="form-group">
+                    <label for="category">栏目</label>
+                    <select class="form-control col-3" id="category" name="category">
+                            {% for category in categories %}
+                                <option value={{ category.id }}>{{ category.title }}</option>
+                            {% endfor %}
+
+                    </select>
+                </div>
+
+                <!-- 文章标签 -->
+                <div class="form-group">
+                    <!-- 标签 -->
+                    <label for="tags">标签</label>
+                    <!-- 文本框 -->
+                    <input type="text" class="form-control col-3" id="tags" name="tags" >
+                </div>
+                <!-- 文章摘要 -->
+                <div class="form-group">
+                    <!-- 标签 -->
+                    <label for="sumary">文章摘要</label>
+                    <!-- 文本框 -->
+                    <input type="text" class="form-control" id="sumary" name="sumary">
+                </div>
+                <!-- 文章正文 -->
+                <label for="body">文章正文</label>
+                <div class="form-group">
+
+                    <!-- 文本区域 -->
+{#                    <!--<textarea type="text" class="form-control" id="body" name="body" rows="12"></textarea>-->#}
+{#                    <textarea cols="40" id="id_body" name="content" rows="10" required data-processed="0" :data-config="data_config" data-external-plugin-resources="[]" data-id="id_body" data-type="ckeditortype">#}
+{#                        </textarea>#}
+                    {{ comment_form.media }}
+                    {{ comment_form.content }}
+                </div>
+{#                <!--ckeditor-->#}
+{#                <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %}"></script>#}
+{#                <script type="text/javascript" src="{% static 'ckeditor/config.js' %}"></script>#}
+{#                <!--在需要使用编辑器的地方插入textarea标签 -->#}
+{#                <!--将相应的控件替换成编辑器代码 content就是文章正文的name="content"-->#}
+{#                <script type="text/javascript">#}
+{#                    window.onload = function()#}
+{#                    {#}
+{#                        CKEDITOR.replace( 'content');#}
+{#                    };#}
+{#                </script>#}
+
+
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn-primary">完成</button>
+            </form>
+        </div>
+    </div>
+   </div>
+{% endblock%}
+
+
+{#底部js#}
+{% block bottomjs%}
+<!-- 引入js -->
+    <script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/write_blog.js' %}"></script>
+{% endblock%}
+

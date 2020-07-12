@@ -1,0 +1,90 @@
+{% extends 'include/base.html' %}
+{% load static %}
+
+{% block title %}
+          <title>搜索</title>
+{% endblock %}
+{% block topothercssjs %}
+
+    <!-- 引入monikai.css -->
+    <link rel="stylesheet" href="{% static 'md_css/monokai.css' %}">
+    <!--导入css-->
+    <link rel="stylesheet" href="{% static 'common/common.css' %}">
+    <link rel="stylesheet" href="{% static 'common/jquery.pagination.css' %}">
+    <script type="text/javascript" src="{% static 'js/axios-0.18.0.min.js' %}"></script>
+
+{% endblock %}
+
+{% block nav%}
+    {% include 'include/simplenav.html' %}
+{% endblock %}
+
+{% block content%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                {% if search_word == '' %}
+                <h3>你没有搜索任何内容</h3>
+                    <p>你可以尝试输入点什么东西,如python</p>
+                 {% else %}
+                    <h3>搜索"{{ search_word }}",找到{{ search_blogs_count }} 个结果</h3>
+                    <hr>
+                    {#page_of_blogs分页后的每页内容#}
+                    {% for blog in page_of_blogs %}
+                        <a href="{% url 'home:detail' %}?id={{ blog.id }}">
+                            <h4>{{ blog.title }}</h4>
+                        </a>
+                    <p>{{ blog.content | striptags | truncatechars_html:100 }}</p>  <!--显示内容100字-->
+                    {% empty %}
+                        <p>搜索不到,换一个关键词吧</p>
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="row" style="display: flex;justify-content: center">
+            {% if page_of_blogs.has_previous %}<!--如果有上一页才显示,不然会报错-->
+                <a class="btn btn-outline-success btn-sm" href="{% url 'home:search' %}?q={{ search_word }}&page={{ page_of_blogs.previous_page_number }}">
+                    上一页
+                </a>
+            {% endif %}
+            &nbsp;
+             {% if page_of_blogs.has_next %}
+                <a class="btn btn-outline-success btn-sm" href="{% url 'home:search' %}?q={{ search_word }}&page={{ page_of_blogs.next_page_number }}">
+                    下一页
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bottomjs %}
+    <!-- 引入js -->
+<script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.pagination.min.js' %}"></script>
+
+{#<script type="text/javascript">#}
+{#    $(function () {#}
+{#        $('#pagination').pagination({#}
+{#            currentPage: {{ page_num }},#}
+{#            totalPage: {{ total_page }},#}
+{#            callback:function (current) {#}
+{##}
+{#                <!-- 地址栏复制 -->#}
+{#                location.href = '/?q={{ search_word }}&page_num='+current;#}
+{#            }#}
+{#        })#}
+{#    });#}
+{#</script>#}
+
+{% endblock %}
+
+
+
+
+
+
+

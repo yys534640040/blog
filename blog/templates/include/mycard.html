@@ -1,0 +1,25 @@
+{% load static %}
+<div class="col-lg-4 col-xl-4 hidden-xs hidden-sm" >
+
+                          <div class="about card " style="border:1px solid; overflow: hidden">
+                              <div class="avatar"> <img src="{% static 'avatar.jpg' %}" alt=""> </div>
+                              <p class="abname">永生</p>
+                              <p class="abposition">喜欢唱,跳,rap</p>
+                              <div class="abtext"> 一个长达两月半的python练习生！ </div>
+
+                          </div>
+
+                    {% if hot_articles %}
+                        <!-- 推荐 -->
+                        <div class="mt-3 bg-white pt-2 pl-3  card " style="margin-top: 1px;border:1px solid; padding:2em; overflow: hidden">
+                        <h4><strong>推荐人气排行</strong></h4>
+                                    <hr>
+
+                                    {% for hot_article in hot_articles %}
+                                        <a href="{% url 'home:detail' %}?id={{ hot_article.id }}" style="color: black">{{ hot_article.title }}</a><br>
+                                    {% endfor %}
+
+                        </div>
+                    {% endif %}
+
+                </div>

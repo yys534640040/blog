@@ -14,11 +14,26 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="vue.cjs" level="application" />
+    <orderEntry type="library" name="vue.common" level="application" />
+    <orderEntry type="library" name="vue.cjs.prod" level="application" />
+    <orderEntry type="library" name="vue.esm-browser" level="application" />
+    <orderEntry type="library" name="vue.esm-browser.prod" level="application" />
+    <orderEntry type="library" name="vue.global" level="application" />
+    <orderEntry type="library" name="vue" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/static/ckeditor/ckeditor/plugins/templates" />
+      </list>
+    </option>
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />
