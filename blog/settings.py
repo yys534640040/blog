@@ -85,9 +85,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
         'PORT': '3306',
-        'USER': 'yys',  # 自己创建用户名
-        'PASSWORD': '123456',
-        'NAME': 'yys',
+        'USER': '用户名',  # 自己创建用户名
+        'PASSWORD': '密码',
+        'NAME': '数据库名',
         'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
