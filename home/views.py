@@ -1,10 +1,8 @@
 import random
 import re
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import ObjectDoesNotExist
 from django.db.models import Q

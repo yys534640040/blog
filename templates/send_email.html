@@ -5,9 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-{{ comment_text|safe }}
+{% autoescape off %}
+<p>{{ comment_text }}</p>
 <br>
 <a href="{{ url }}">点击查看</a>
+{% endautoescape %}
+
 
 </body>
 </html>

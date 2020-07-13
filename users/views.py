@@ -1,17 +1,14 @@
 import logging
 import random
 # 注册
-import re
 import string
 import time
-from random import randint
 
 from django.contrib import auth
 from django.contrib.auth import logout
 # 登录
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.http import HttpResponse
 from django.http import JsonResponse
 # 图形验证
 from django.http.response import HttpResponseBadRequest
@@ -19,21 +16,15 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django_redis import get_redis_connection
 
-from libs.captcha.captcha import captcha
-from libs.yuntongxun.sms import CCP
 from users.models import User
 # 短信验证
-from utils.response_code import RETCODE
 from .forms import LoginForm, RegisterForm, ChangeNicknameForm, BindEmailForm, ChangePasswordForm, ForgotPasswordForm
 
 # 写博客
 
 
 logger = logging.getLogger("django")
-
-
 # Create your views here.
 
 

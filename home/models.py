@@ -97,7 +97,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def get_url(self, request):
-        # print(request.get_full_path())
+        """获得网站url绝对路径"""
         return request.build_absolute_uri()
 
     def get_email(self):
@@ -156,6 +156,7 @@ class Comment(models.Model):
                 'comment_text': self.content,
                 "url": self.article.get_url(request)
             }
+            # 发送给html模板
             text = render_to_string('send_email.html', context)
             send_mail = SendMail(subject, text, email)
             send_mail.start()
